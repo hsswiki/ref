@@ -1,0 +1,97 @@
+<!--
+  Comments are visible if user views the source code.
+  VSCode "Format Document" command can be helpful.
+
+  Ref: [MDN Web Docs](https://developer.mozilla.org/en-US/)
+
+  Terms:
+  HTML element: <tag attribute=argument>
+-->
+
+<!DOCTYPE html>
+<!--
+  DOCTYPE is a must, but case-insensitive.
+  Ref: https://stackoverflow.com/a/6076470 -->
+
+<html>
+<!-- HTML files begin and end with html tag. -->
+
+<head>
+  <!-- Head has metadata for browser and search engines. -->
+  <title>Page title</title>
+
+  <style>
+    /* Internal CSS. Note the comment style is different. */
+    h1 {
+      font-size: 16px;
+    }
+  </style>
+
+  <script>
+    // Internal JavaScript. Note JS comment style applies here.
+    // Can insert Script tag anywhere in HTML.
+  </script>
+  <!-- Or -->
+  <script src="javascript_notes.js"></script>
+
+</head>
+
+<body>
+  <!-- Only Body is visible. -->
+  <h1>Heading level 1 (highest)</h1>
+  <h6>Heading level 6 (lowest)</h6>
+
+  <h2>Text</h2>
+
+  <p>Line break <br> with `br` tag</p>
+
+  <a href="hss.wiki">Anchor with `href`</a>
+
+  <p>
+    Paragraph.
+    <b>Bold</b> with `b` tag.
+    <i>Italicize</i> with `i` tag.
+  </p>
+
+  <p style="font-family: Arial; font-size: 18px; color: #6cf">Inline CSS for font</p>
+  <p style="background-color: #6cf">Inline CSS for background color</p>
+
+  <h2>List</h2>
+
+  <ol>
+    <li>Ordered list item</li>
+  </ol>
+
+  <ul>
+    <li>Unordered list item</li>
+  </ul>
+
+  <h2>Form</h2>
+
+  <form action="/destination_url">
+
+    <label>
+      Text input label:
+      <!-- Nest input in a `label` tag can increase the hit area. -->
+
+      <input id="id_input" name="name_input" type="text">
+      <!-- `id` is for frontend; `name` is for backend. -->
+    </label>
+
+    <br>
+
+    <label>
+      Checkbox label:
+      <input type="checkbox">
+    </label>
+
+    <input type="submit" value="Submit">
+  </form>
+
+  <h2>Media</h2>
+
+  <img src="" width="100" height="100">
+
+</body>
+
+</html>
