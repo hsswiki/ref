@@ -1,6 +1,9 @@
 /*
  * JavaScript ES6 Notes
  *
+ * TODO
+ *   - [A re-introduction to JavaScript (JS tutorial)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript)
+ *
  * To run the script:
  *
  * 1. Change the main function to the function you'd like to run
@@ -14,6 +17,7 @@
  * https://google.github.io/styleguide/jsguide.html
  *
  * ```
+ * 'single quote for strings'
  * varName
  * CONST_NAME
  * constantInFunctionScope
@@ -29,6 +33,10 @@
  *
  * testMethodName_state_expectedOutcome
  * ```
+ *
+ * - Terminate statements with semicolon
+ * - 2 spaces for block indentation
+ * - 4 spaces for line continuation
  */
 
 // ############################################################################
@@ -39,35 +47,16 @@ test_();
 
 
 function helloWorld() {
-  console.log('hello world');
+  console.log('hello', 'world' + '!');
+  // window.alert('');
+  // window.confirm('Confirm message');
 }  // Don't need `;` after `}`
 
 
 function test_() {  // `test` is a reserved keyword
-  class  {
-    constructor(calories = 250) {
-      this.calories = calories;
-    }
-  }  // No comma in the end.
+  console.log(2);
 
-  // class IceCream extends Dessert {
-  //   constructor(flavor, calories, toppings = []) {
-  //     super(calories);
-  //     this.flavor = flavor;
-  //     this.toppings = toppings;
-  //   }
-  //   // No semicolon between methods
-
-  //   addTopping(topping) {
-  //     this.toppings.push(topping);
-  //   }
-
-  //   static staticMethod() {}
-  // }
-
-  // const ice = new IceCream('vanilla');
-  // IceCream.staticMethod();
-
+  console.log(1);
 }
 
 // ############################################################################
@@ -94,6 +83,12 @@ function dataTypesAndDataStructures() {
   // `==` Double equality operator allows type coercion. `===` strict
   // comparison prevents it.
 
+  // Template Literal / Template String
+  `1 + 1 = ${1 + 1}`;
+
+  'Line continuation' +
+    'with plus operators';
+
   // Conditional/ternary operator
   v = true? 1 : 2;
   console.assert(v == 1);
@@ -103,7 +98,7 @@ function dataTypesAndDataStructures() {
 // --------------------------------------------------------------------
 
   // Destructuring with array
-  let [v1, v2, v3] = [1, 2, 3];
+  var [v1, v2, v3] = [1, 2, 3];
   [v1, , v3] = [1, 2, 3];  // Can ignore values
   console.assert(v1 == 1);
 
@@ -126,10 +121,9 @@ function dataTypesAndDataStructures() {
   console.assert([...a1, ...a2].toString() == [1, 2].toString());
   // `.toString` turns array into '1,2' for comparison.
 
-  [v1, ...v2] = [1, 2, 3];
-  // v1, v2 has been declared before. Otherwise declaration is needed.
-  console.assert(v1 == 1);
-  console.assert(v2.toString() == [2, 3].toString());
+  var [v1, ...vArr] = [1, 2, 3];
+  v1 == 1;
+  console.assert(vArr.toString() == [2, 3].toString());
 
 // ========================================================================
 //   JavaScript primitives and data structures
@@ -137,21 +131,31 @@ function dataTypesAndDataStructures() {
 
   // JavaScript primitives
 
-  // Number: integer or floating point
-  v = 1;
-  typeof(v);
+  1;
+  typeof(1) == 'number';
 
-  // String
-  v = 'a';
+  1.114.toFixed(2) == 1.11;
+  1.115.toFixed(2) == 1.12;
 
-  // Boolean
-  v = true;
+  Math.max(1, 2, 3) == 3;  // Not taking array as argument
 
-  // Null
-  v = null;
 
-  // Undefined: variable does not exist, or data type not assigned.
-  v = undefined;
+  'a';
+  Number('1') === 1;
+  'A'.toLowerCase();
+  1 + 'a' == '1a';
+  'ab'.includes('a');  // Return boolean
+
+  true;
+  false;
+  !true;
+  true && true;
+  true || true;
+  true === true;
+
+  null;
+
+  undefined;  // Variable not exist, or data type not assigned.
 
 //   String
 // --------------------------------------------------------------------
@@ -165,11 +169,28 @@ function dataTypesAndDataStructures() {
 
   let arr = [1, 2];
   // Discouraged: arr = Array(1, 2);  // `new` constructor not needed for Array
-  console.assert(arr[0] == 1);
 
-  console.assert(
-    arr.join(' ') == '1 2'
-  );
+  arr.length;
+
+  [1].push(1) == [1, 1].length;  // Append in place.
+  arr.forEach(_ => _);
+
+  [1].pop() == 1;  // Also modify in place.
+  var a = arr.join(' ');
+  [1, 2].filter(v => v == 1) == [1];
+  [1, 2].find(v => v == 1) == 1;  // Return a object reference
+  [1, 1].map(v => v) == [1, 1];
+
+  [].concat(1) == [1];  // Return [1], not in-place
+  [].concat([1]) == [1];  // Still return [1] instead of [[1]]
+
+  [].includes(1) === false;
+
+  // Sum
+  [1, 2, 3].reduce((a, b) => a+b);
+
+  // Make a SHALLOW copy of an array
+  [...[1]]
 
 //   Set
 // --------------------------------------------------------------------
@@ -177,27 +198,50 @@ function dataTypesAndDataStructures() {
   let set = new Set([1, 2]);  // `new` constructor needed for Set
 
   // Use spread operator to turn set into array
-  console.assert([...set].toString() == [1, 2].toString());
+  [...set];
 
-  set.add(3);  // Will return the set
-  set.add(1);
-  set.delete(3);
-  set.clear();
+  new Set([1]).add(2);  // Return set {1, 2}
+  new Set([1]).add(1);  // Return set {1}
+  new Set([1]).delete(1);
+    // Return true if item in set. The set was modified in place.
+  new Set([1]).clear();  // Clear set in place
 
-  set.size;
+  new Set([1]).size;
 
-  set.has(1);
+  new Set([1]).has(1);
   // set.values(); == set.keys(); == [1, 2]
 
-//   JavaScript object: dictionary
+//   JavaScript object
 // --------------------------------------------------------------------
 
-  const jsObject = {
+  var jsObject = {
     propertyName: 'property value',
+    '': '',
+    1: '',
   }
-  console.assert(jsObject.propertyName == 'property value');
 
-  Object.keys(jsObject).length
+  jsObject.newProperty = '';
+
+  jsObject.propertyName;
+  jsObject['propertyName'];
+
+  Object.keys(jsObject).length;
+  Object.entries(jsObject);  // Array of key, value pairs
+
+  // Opject Spread: make a deep copy
+  newJsObj = {
+    ...jsObject,
+    propertyName: 'Updated value',
+  }
+
+  // Check object equality
+  // https://www.joshbritz.co/posts/why-its-so-hard-to-check-object-equality/
+  JSON.stringify({a: 1, b: 2}) === JSON.stringify({a: 1, b: 2})
+    // Keys need to be in the same order
+
+  // Shorthand property names
+  var a = 1;
+  {a};  // == {a: a}
 
 //   Map: key-value pairs
 // --------------------------------------------------------------------
@@ -219,6 +263,9 @@ function dataTypesAndDataStructures() {
 // ############################################################################
 
 function controlFlow() {
+
+  // break;
+  // continue;
 
   // Switch
   switch (1) {
@@ -253,12 +300,12 @@ function controlFlow() {
 
   // For In loop can also loop objects, while For Of loop and conventional loop
   // can't.
-  let obj = {
+  var obj = {
     k1: 'v1',
     k2: 'v2',
   }
   for (const key in obj) {
-    console.assert(obj[key] == 'v1');
+    obj[key] == 'v1';
     break;
   }
 
@@ -277,25 +324,27 @@ function function_() {
 //   Function declaration
 // ========================================================================
 
-  // Conventional function declaration
-  function func(arg) {
-    return arg;
+  // Function Statement
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/functions#the_function_declaration_function_statement
+  console.assert(func(1) == 1);
+  // Only functions declared in this way can be called before definition.
+  // (Hoisting)
+  function func(a) {
+    return a;
   }
-  console.assert(func(1) == 1);
 
-  // Arrow function expression
-  func = arg => arg;
-  console.assert(func(1) == 1);
+  // Function Expression
+  var func = function(a) {return a;}
 
-  func = (arg1, _arg2) => arg1;  // Parenthesis is a must for multiple args.
-  console.assert(func(1, 2) == 1);
+  // Arrow Function Expression
+  var func = a => a + 1;
 
-  // Block body syntax of arrow function
-  func = arg => {
-    arg = arg + 1;
-    return arg - 1;
+  var func = (a1, a2) => {
+    // Parentheses required for multiple args.
+    // Braces required for multiple expressions.
+    a1;
+    return a2;
   }
-  console.assert(func(1) == 1);
 
   // Self-executing function: start running immediately after declaration
   (_ => console.assert(true))();
@@ -318,18 +367,37 @@ function function_() {
 
   // Named parameters can be created on top of object destruction
   // https://stackoverflow.com/a/11796776
-
-  function named_para_func({named_para1=1, positional_para2}={}) {
-    // Can put positional parameters after keyword parameters.
-    // Note that here we use `=` instead of `:` for object properties.
-    // Logic: An empty object `{}` was set as a default parameter, and its
-    // property values were updated before use.
-    return named_para1;
+  function namedParaFunc(
+      positionalPara,
+      positionalParaWithDefault='positional default',
+      {
+        namedPara,
+        namedParaWithDefault='named default',
+        namedParaPlacedAfterDefaultAlsoWorks,
+      }={}) {
+    console.log(`Positional para: ${positionalPara}`);
+    console.log(`Positional para with default: ${positionalParaWithDefault}`);
+    console.log(`Named para: ${namedPara}`);
+    console.log(`Named para with default: ${namedParaWithDefault}`);
   }
-  console.assert(named_para_func() == 1);
 
-  // Can omit positional parameters
-  console.assert(named_para_func({named_para1: 2}) == 2);
+  namedParaFunc();
+  namedParaFunc('positional');
+  namedParaFunc('pos', 'positional override');
+  namedParaFunc('pos', paraNameLikeThisWillBeIgnored='pos override');
+  namedParaFunc('pos', {namedPara: 'actually still positional override'});
+  namedParaFunc('pos', 'pos override', {namedPara: 'named'});
+  namedParaFunc('pos', 'pos2', {namedParaWithDefault: 'named override'});
+
+  // Logic: the named para js object is actually a positional para with default
+  // = {}. When an js object is passed as an arg to this positional para, those
+  // named para variables will be updated when eponymous properties exist in
+  // the arg by Object Destruction.
+  //
+  // The named para vars use `=` instead of `:` for defaults since {a, b=1} is
+  // not an object like {a: 1, b: 2}. Instead, it's a Shorthand Property
+  // Initializer, which equals to variable declaration a=a (undefined) and b=1,
+  // and var a and b are available in the outer scope.
 
 }
 
@@ -337,30 +405,36 @@ function function_() {
 //   Class
 // ############################################################################
 
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes
+
 function class_() {
-  class Dessert {
-    constructor(calories = 250) {
-      this.calories = calories;
-    }
-  }  // No comma in the end.
+  // Class Declaration
+  class ClassName {
+    static staticProperty = 'a';
 
-  class IceCream extends Dessert {
-    constructor(flavor, calories, toppings = []) {
-      super(calories);
-      this.flavor = flavor;
-      this.toppings = toppings;
-    }
-    // No semicolon between methods
-
-    addTopping(topping) {
-      this.toppings.push(topping);
+    constructor(constructorParam, optionalParam='a') {
+      this.instanceProperty = constructorParam;
     }
 
-    static staticMethod() {}
-  }
+    instanceMethod(param='a') {
+      this.instanceProperty;
+    }
 
-  const ice = new IceCream('vanilla');
-  IceCream.staticMethod();
+    static staticMethod() {
+      // In static methods, `this` refers to ClassName, while in instance
+      // methods, `this` refers to the instance.
+      this.staticProperty;
+    }
+  }  // No comma here.
+
+  const instance = new ClassName('a', optionalParam='b');
+
+  instance.instanceProperty;
+  instance.instanceMethod();
+
+  ClassName.staticProperty;
+  ClassName.staticMethod();
+
 }
 
 // ############################################################################
@@ -384,22 +458,6 @@ function clientSideJS() {
 
 AJAX: Async JS and XML(HTTPRequest)
 
-> `var`, `let`, and `constant`
-
-```javascript
-{
-  var varVar = 1;
-}
-// varVar can be used here
-
-{
-  let letVar = 1;
-  const constVar = 1;
-}
-// letVar and constVar cannot be used here
-```
-
-var variables can be updated and re-declared within its scope; let variables can be updated but not re-declared; const variables can neither be updated nor re-declared.
 
 XHR: XMLHttpRequest
 
@@ -491,8 +549,3 @@ function requestError(e, part) {
 }
 ```
 */
-
-
-function test() {
-
-}

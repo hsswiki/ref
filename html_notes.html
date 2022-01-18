@@ -1,11 +1,19 @@
 <!--
-  Comments are visible if user views the source code.
-  VSCode "Format Document" command can be helpful.
+Comments are visible if user views the source code.
+VSCode "Format Document" command can be helpful.
 
-  Ref: [MDN Web Docs](https://developer.mozilla.org/en-US/)
+Ref:
+  - [MDN Web Docs](https://developer.mozilla.org/en-US/)
+  - [HTML basics](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics)
 
-  Terms:
-  HTML element: <tag attribute=argument>
+
+  [HTTP response status code](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+
+Terms:
+HTML Element:
+  <opening-tag attribute-name="attribute-value" attr2="">
+    Content
+  </closing-tag>
 -->
 
 <!DOCTYPE html>
@@ -14,18 +22,20 @@
   Ref: https://stackoverflow.com/a/6076470 -->
 
 <html>
-<!-- HTML files begin and end with html tag. -->
+<!-- HTML files begin and end with html tag. AKA The Root Element.-->
 
 <head>
   <!-- Head has metadata for browser and search engines. -->
-  <title>Page title</title>
+  <meta charset="utf-8">
+  <title class="class1 class2" id="uniqueId">Page title</title>
 
   <style>
     /* Internal CSS. Note the comment style is different. */
     h1 {
-      font-size: 16px;
+      color: black;
     }
   </style>
+  <link href="css_notes.css" rel="stylesheet">
 
   <script>
     // Internal JavaScript. Note JS comment style applies here.
@@ -38,14 +48,15 @@
 
 <body>
   <!-- Only Body is visible. -->
+
   <h1>Heading level 1 (highest)</h1>
-  <h6>Heading level 6 (lowest)</h6>
+    <!-- There are 6 heading levels. Commonly use at most 3 or 4 -->
 
   <h2>Text</h2>
 
-  <p>Line break <br> with `br` tag</p>
+  <p>Line break with `br` tag.<br></p>
 
-  <a href="hss.wiki">Anchor with `href`</a>
+  <a href="hss.wiki">Anchor with Hypertext Reference `href` attribute in `a` tag.</a>
 
   <p>
     Paragraph.
@@ -59,11 +70,11 @@
   <h2>List</h2>
 
   <ol>
-    <li>Ordered list item</li>
+    <li>Ordered list with `ol` tag. Item with `li` tag.</li>
   </ol>
 
   <ul>
-    <li>Unordered list item</li>
+    <li>Unordered list with `ul` tag.</li>
   </ul>
 
   <h2>Form</h2>

@@ -1,0 +1,20 @@
+/*
+
+- [CSS basics](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics)
+
+CSS Rule/Ruleset:
+
+selector {
+  property: value;
+}
+
+select, multiple, elements {}
+
+tag-selector
+#id-selector
+.class-selector
+*/
+
+p {
+  color: gray;
+}
